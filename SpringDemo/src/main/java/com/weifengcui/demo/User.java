@@ -1,24 +1,33 @@
 package com.weifengcui.demo;
 
+import javax.persistence.*;
+
+//Learn more from https://dzone.com/articles/jpa-tutorial-mapping-entities-0
+@Entity
+@Table(name = "user")
 public class User {
+    @Id
+//  @GeneratedValue(strategy = GenerationType.AUTO) don't set the auto generate value here since the DB already set that.
+    @Column(name = "user_id")
+    private int id;
+    @Column(name = "user_name")
+    private String name;
+    @Column(name = "user_password")
+    private String password;
 
-    private final long id;
-    private final String name;
-    private final String password;
-
-    public User(long id, String name){
+    public void setId(int id) {
         this.id = id;
-        this.name = name;
-        this.password = "";
     }
 
-    public User(long id, String name, String password) {
-        this.id = id;
+    public void setName(String name) {
         this.name = name;
+    }
+
+    public void setPassword(String password) {
         this.password = password;
     }
 
-    public long getId() {
+    public int getId() {
         return id;
     }
 
