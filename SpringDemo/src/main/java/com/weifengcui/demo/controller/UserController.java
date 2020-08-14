@@ -2,6 +2,7 @@ package com.weifengcui.demo.controller;
 
 import com.weifengcui.demo.entity.User;
 import com.weifengcui.demo.repository.UserRepository;
+import com.weifengcui.demo.response.GeneralResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -23,11 +24,17 @@ public class UserController {
      */
     @PostMapping(path = "/signup")
     public @ResponseBody
-    User signup(
+    GeneralResponse signup(
             @RequestParam String username,
             @RequestParam String password) {
-        //TODO: this didn't return all the data in DB, like the PK.
-        return userRepository.save(new User(username, password));
+        Optional<User> optional = userRepository.findUserByUserName(username);
+        if(optional.isPresent()){
+            return new GeneralResponse(false, "username exists");
+        }
+
+        userRepository.save(new User(username, password));
+        Optional<User> saved = userRepository.findUserByUserName(username);
+        return new GeneralResponse(true, "", saved.get());
     }
 
     /**
@@ -48,11 +55,11 @@ public class UserController {
     }
 
     /**
-     *
      * Shows all users information, mainly for debug.
      */
-    @GetMapping(path="/all")
-    public @ResponseBody Iterable<User> getAllUsers() {
+    @GetMapping(path = "/all")
+    public @ResponseBody
+    Iterable<User> getAllUsers() {
         return userRepository.findAll();
     }
 }

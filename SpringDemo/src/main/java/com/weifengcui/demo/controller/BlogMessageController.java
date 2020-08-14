@@ -2,6 +2,7 @@ package com.weifengcui.demo.controller;
 
 import com.weifengcui.demo.entity.BlogMessage;
 import com.weifengcui.demo.repository.BlogMessageRepository;
+import com.weifengcui.demo.response.GeneralResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -20,14 +21,14 @@ public class BlogMessageController {
 
     @PostMapping(path = "/create")
     public @ResponseBody
-    BlogMessage create(
+    GeneralResponse create(
             @RequestParam int userId,
             @RequestParam String title,
             @RequestParam String description) {
 
         Date now = new Date();
-        //TODO: this didn't return all the data in DB, like the PK.
-        return messageRepository.save(new BlogMessage(userId, title, description, now));
+        messageRepository.save(new BlogMessage(userId, title, description, now));
+        return GeneralResponse.SUCCESS;
     }
 
     @PostMapping(path = "/update")
