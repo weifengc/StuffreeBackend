@@ -2,7 +2,6 @@
 ```bash
 mvnw spring-boot:run
 ```
-check `localhost:5000/hello` for health
 
 ## Or you can build the jar file
 ```bash
@@ -13,19 +12,19 @@ jar file should be in target/ directory.
 # User Service
 ## Sigup
 ```bash
-curl localhost:5000/user/signup \
+curl localhost:8080/user/signup \
 -d username=user1 \
 -d password=password1
 ```
 
 ## Check user table results
 ```bash
-curl 'localhost:5000/user/all'
+curl 'localhost:8080/user/all'
 ```
 
 ## Login
 ```bash
-curl localhost:5000/user/login \
+curl localhost:8080/user/login \
 -d username=user1 \
 -d password=password1
 ```
@@ -33,12 +32,12 @@ curl localhost:5000/user/login \
 # Blog Service
 ## List 20 blogs
 ```bash
-curl localhost:5000/blog/list?num=20
+curl localhost:8080/blog/list?num=20
 ```
 
 ## Add a new blog
 ```bash
-curl localhost:5000/blog/create \
+curl localhost:8080/blog/create \
 -d userId=1 \
 -d title='Title 1' \
 -d description='This is the first blog'
@@ -46,7 +45,7 @@ curl localhost:5000/blog/create \
 
 ## Update a blog
 ```bash
-curl localhost:5000/blog/update \
+curl localhost:8080/blog/update \
 -d messageId=1 \
 -d title='updated blog 1' \
 -d description='This is the first blog I posted'
@@ -54,5 +53,5 @@ curl localhost:5000/blog/update \
 
 ## Check all blogs
 ```bash
-curl 'localhost:5000/blog/all'
+curl 'localhost:8080/blog/all'
 ```
