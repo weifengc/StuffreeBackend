@@ -7,26 +7,57 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
+import java.util.Optional;
 
+/**
+ * CRUD APIs for blog message data.
+ */
 @Controller
-@RequestMapping(path="/blog")
+@RequestMapping(path = "/blog")
 public class BlogMessageController {
     @Autowired
     private BlogMessageRepository messageRepository;
 
-    @PostMapping(path="/add") // Map ONLY POST Requests
-    public @ResponseBody String addMessage (@RequestParam int userId
-            , @RequestParam String title, @RequestParam String description) {
+    @PostMapping(path = "/create")
+    public @ResponseBody
+    BlogMessage create(
+            @RequestParam int userId,
+            @RequestParam String title,
+            @RequestParam String description) {
 
         Date now = new Date();
-        BlogMessage message = new BlogMessage(userId, title, description, now);
-        messageRepository.save(message);
-        return "Saved";
+        //TODO: this didn't return all the data in DB, like the PK.
+        return messageRepository.save(new BlogMessage(userId, title, description, now));
     }
 
-    @GetMapping(path="/all")
-    public @ResponseBody Iterable<BlogMessage> getAllMessages() {
-        // This returns a JSON or XML with the users
+    @PostMapping(path = "/update")
+    public @ResponseBody
+    BlogMessage update(
+            @RequestParam int messageId,
+            @RequestParam String title,
+            @RequestParam String description) {
+
+        Optional<BlogMessage> messageOptional = messageRepository.findById(messageId);
+        if (!messageOptional.isPresent()) {
+            return new BlogMessage();
+        }
+
+        BlogMessage message = messageOptional.get();
+        message.setTitle(title);
+        message.setDescription(description);
+        return messageRepository.save(message);
+    }
+
+    @GetMapping(path = "/list")
+    public @ResponseBody
+    Iterable<BlogMessage> list(@RequestParam int num) {
+        return messageRepository.listReverseOrderByCreatedTS(num);
+    }
+
+    // For debug only.
+    @GetMapping(path = "/all")
+    public @ResponseBody
+    Iterable<BlogMessage> getAllMessages() {
         return messageRepository.findAll();
     }
 }

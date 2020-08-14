@@ -26,6 +26,7 @@ public class UserController {
     User signup(
             @RequestParam String username,
             @RequestParam String password) {
+        //TODO: this didn't return all the data in DB, like the PK.
         return userRepository.save(new User(username, password));
     }
 

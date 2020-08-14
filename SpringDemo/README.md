@@ -24,11 +24,24 @@ curl localhost:8080/user/login \
 ```
 
 # Blog Service
+## List 20 blogs
+```bash
+curl localhost:8080/blog/list?num=20
+```
+
 ## Add a new blog
 ```bash
-curl localhost:8080/blog/add \
--d userId=2 \
--d title='A great title' \
+curl localhost:8080/blog/create \
+-d userId=1 \
+-d title='Title 1' \
+-d description='This is the first blog'
+```
+
+## Update a blog
+```bash
+curl localhost:8080/blog/update \
+-d messageId=1 \
+-d title='updated blog 1' \
 -d description='This is the first blog I posted'
 ```
 
