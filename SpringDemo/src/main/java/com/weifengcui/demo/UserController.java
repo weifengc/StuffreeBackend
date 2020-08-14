@@ -18,13 +18,7 @@ public class UserController {
     @PostMapping(path="/add") // Map ONLY POST Requests
     public @ResponseBody String addNewUser (@RequestParam String name
             , @RequestParam String password) {
-        // @ResponseBody means the returned String is the response, not a view name
-        // @RequestParam means it is a parameter from the GET or POST request
-
-        User n = new User();
-        n.setName(name);
-        n.setPassword(password);
-        userRepository.save(n);
+        userRepository.save(new User(name, password));
         return "Saved";
     }
 
