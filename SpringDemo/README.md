@@ -1,7 +1,13 @@
-# Build
+# Build and Run
 ```bash
 mvnw spring-boot:run
 ```
+
+## Or you can build the jar file
+```bash
+mvnw clean package
+```
+jar file should be in target/ directory.
 
 # User Service
 ## Sigup
