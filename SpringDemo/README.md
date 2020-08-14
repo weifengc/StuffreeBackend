@@ -4,14 +4,23 @@ mvnw spring-boot:run
 ```
 
 # User Service
-## Add a user
+## Sigup
 ```bash
-curl localhost:8080/user/add -d name=Jack -d password=passwordForJack
+curl localhost:8080/user/signup \
+-d username=user1 \
+-d password=password1
 ```
 
 ## Check user table results
 ```bash
 curl 'localhost:8080/user/all'
+```
+
+## Login
+```bash
+curl localhost:8080/user/login \
+-d username=user1 \
+-d password=password1
 ```
 
 # Blog Service

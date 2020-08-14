@@ -1,4 +1,4 @@
-package com.weifengcui.demo;
+package com.weifengcui.demo.entity;
 
 import javax.persistence.*;
 
